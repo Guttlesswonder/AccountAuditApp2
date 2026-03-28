@@ -5,6 +5,8 @@ import { normalizeResponse } from './checklist';
 
 const specialtyOptions: Specialty[] = ['Ortho', 'Pediatric', 'General Dental', 'OMS', 'Periodontist', 'Endodontist'];
 
+const emptySpecialtyCoverage = () => specialtyOptions.map((specialty) => ({ specialty, selected: false, totalLocations: '', usingPlanetDDS: '' }));
+
 export function createEmptyAccount(name = 'New Account'): AccountRecord {
   const now = new Date().toISOString();
   return {
@@ -19,7 +21,7 @@ export function createEmptyAccount(name = 'New Account'): AccountRecord {
     executiveSponsor: '',
     operationalChampion: '',
     stakeholders: [],
-    specialtyCoverage: specialtyOptions.map((specialty) => ({ specialty, selected: false, totalLocations: '', usingPlanetDDS: '' })),
+    specialtyCoverage: emptySpecialtyCoverage(),
     hasDenticon: true,
     hasCloud9: false,
     hasApteryx: false,
@@ -32,6 +34,36 @@ export function createEmptyAccount(name = 'New Account'): AccountRecord {
     actions: [],
     snapshots: [],
   };
+}
+
+export function normalizeAccount(account: Partial<AccountRecord>): AccountRecord {
+  const base = createEmptyAccount(account.accountName ?? 'Imported Account');
+  return {
+    ...base,
+    ...account,
+    id: account.id ?? base.id,
+    createdAt: account.createdAt ?? base.createdAt,
+    updatedAt: account.updatedAt ?? base.updatedAt,
+    responses: {
+      ...base.responses,
+      ...(account.responses ?? {}),
+    },
+    productAdoption: {
+      ...base.productAdoption,
+      ...(account.productAdoption ?? {}),
+    },
+    stakeholders: account.stakeholders ?? [],
+    specialtyCoverage: account.specialtyCoverage ?? base.specialtyCoverage,
+    actions: account.actions ?? [],
+    snapshots: account.snapshots ?? [],
+  };
+}
+
+export function normalizeAppState(state: AppState | null): AppState {
+  if (!state || !Array.isArray(state.accounts) || !state.accounts.length) return createInitialState();
+  const accounts = state.accounts.map((account) => normalizeAccount(account));
+  const currentAccountId = accounts.some((a) => a.id === state.currentAccountId) ? state.currentAccountId : accounts[0].id;
+  return { accounts, currentAccountId };
 }
 
 export function createInitialState(): AppState {

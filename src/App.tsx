@@ -18,7 +18,7 @@ import { deriveOpportunities } from './lib/opportunityRules';
 import { deriveRiskRegister } from './lib/readiness';
 import { calculateScores, labelForMetric } from './lib/scoring';
 import { appStateStorage } from './lib/storage';
-import { createEmptyAccount, createInitialState, deleteAccount, duplicateAccount, upsertAccount } from './lib/state';
+import { createEmptyAccount, createInitialState, deleteAccount, duplicateAccount, normalizeAppState, upsertAccount } from './lib/state';
 import type { AccountRecord, ActionItem, AppState, SectionId, StakeholderContact } from './types';
 
 const termsStore = new IndexedDbTermsStore();
@@ -40,7 +40,7 @@ function downloadText(filename: string, content: string) {
 }
 
 export default function App() {
-  const [state, setState] = useState<AppState>(() => appStateStorage.load() ?? createInitialState());
+  const [state, setState] = useState<AppState>(() => normalizeAppState(appStateStorage.load() ?? createInitialState()));
   const [tab, setTab] = useState('Summary');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [importMode, setImportMode] = useState<'account' | 'full'>('account');
@@ -161,7 +161,7 @@ export default function App() {
                     <table className="w-full text-sm">
                       <thead><tr><th className="text-left">Include</th><th className="text-left">Specialty</th><th className="text-left">Total locations</th><th className="text-left">Using Planet DDS</th></tr></thead>
                       <tbody>
-                        {current.specialtyCoverage.map((row, idx) => <tr key={row.specialty} className="border-t">
+                        {(current.specialtyCoverage ?? []).map((row, idx) => <tr key={row.specialty} className="border-t">
                           <td><input type="checkbox" checked={row.selected} onChange={(e) => {
                             const specialtyCoverage = [...current.specialtyCoverage];
                             specialtyCoverage[idx] = { ...row, selected: e.target.checked };
