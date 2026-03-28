@@ -1,7 +1,9 @@
 import { checklistItems } from '../data/checklist';
 import { productCatalog } from '../data/productCatalog';
-import type { AccountRecord, AppState } from '../types';
+import type { AccountRecord, AppState, Specialty } from '../types';
 import { normalizeResponse } from './checklist';
+
+const specialtyOptions: Specialty[] = ['Ortho', 'Pediatric', 'General Dental', 'OMS', 'Periodontist', 'Endodontist'];
 
 export function createEmptyAccount(name = 'New Account'): AccountRecord {
   const now = new Date().toISOString();
@@ -17,6 +19,7 @@ export function createEmptyAccount(name = 'New Account'): AccountRecord {
     executiveSponsor: '',
     operationalChampion: '',
     stakeholders: [],
+    specialtyCoverage: specialtyOptions.map((specialty) => ({ specialty, selected: false, totalLocations: '', usingPlanetDDS: '' })),
     hasDenticon: true,
     hasCloud9: false,
     hasApteryx: false,

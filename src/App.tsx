@@ -152,6 +152,38 @@ export default function App() {
                   }} />
                 </>}
 
+
+
+                {sectionId === 'commercial_terms' && <div className="border rounded p-3 bg-slate-50 space-y-2">
+                  <div className="label">Specialty footprint</div>
+                  <p className="text-xs text-slate-600">Select each specialty in the account, then capture total locations and locations currently using Planet DDS services.</p>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead><tr><th className="text-left">Include</th><th className="text-left">Specialty</th><th className="text-left">Total locations</th><th className="text-left">Using Planet DDS</th></tr></thead>
+                      <tbody>
+                        {current.specialtyCoverage.map((row, idx) => <tr key={row.specialty} className="border-t">
+                          <td><input type="checkbox" checked={row.selected} onChange={(e) => {
+                            const specialtyCoverage = [...current.specialtyCoverage];
+                            specialtyCoverage[idx] = { ...row, selected: e.target.checked };
+                            saveAccount({ ...current, specialtyCoverage });
+                          }} /></td>
+                          <td>{row.specialty}</td>
+                          <td><input className="input" value={row.totalLocations} onChange={(e) => {
+                            const specialtyCoverage = [...current.specialtyCoverage];
+                            specialtyCoverage[idx] = { ...row, totalLocations: e.target.value };
+                            saveAccount({ ...current, specialtyCoverage });
+                          }} /></td>
+                          <td><input className="input" value={row.usingPlanetDDS} onChange={(e) => {
+                            const specialtyCoverage = [...current.specialtyCoverage];
+                            specialtyCoverage[idx] = { ...row, usingPlanetDDS: e.target.value };
+                            saveAccount({ ...current, specialtyCoverage });
+                          }} /></td>
+                        </tr>)}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>}
+
                 {sectionId === 'people_ownership' && <div className="space-y-3 border rounded p-3 bg-slate-50">
                   <div className="grid md:grid-cols-2 gap-2">
                     <label className="text-sm">Executive Sponsor<input className="input" value={current.executiveSponsor} onChange={(e) => saveAccount({ ...current, executiveSponsor: e.target.value })} /></label>

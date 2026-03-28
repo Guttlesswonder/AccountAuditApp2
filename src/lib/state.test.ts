@@ -5,7 +5,7 @@ import { createInitialState, deleteAccount, duplicateAccount } from './state';
 describe('checklist response helpers', () => {
   it('generates initial responses', () => {
     const responses = initialResponses();
-    expect(Object.keys(responses).length).toBeGreaterThan(18);
+    expect(Object.keys(responses).length).toBeGreaterThan(10);
   });
 
   it('normalizes sparse response', () => {

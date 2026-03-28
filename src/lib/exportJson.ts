@@ -1,5 +1,15 @@
 import type { AccountRecord, AppState } from '../types';
 
+
+const defaultSpecialtyCoverage = [
+  'Ortho',
+  'Pediatric',
+  'General Dental',
+  'OMS',
+  'Periodontist',
+  'Endodontist',
+].map((specialty) => ({ specialty, selected: false, totalLocations: '', usingPlanetDDS: '' }));
+
 export function exportCurrentAccount(account: AccountRecord): string {
   return JSON.stringify(account, null, 2);
 }
@@ -22,6 +32,7 @@ export function parseImportedAccount(raw: string): AccountRecord {
     executiveSponsor: parsed.executiveSponsor ?? '',
     operationalChampion: parsed.operationalChampion ?? '',
     stakeholders: parsed.stakeholders ?? [],
+    specialtyCoverage: parsed.specialtyCoverage ?? defaultSpecialtyCoverage,
     hasDenticon: !!parsed.hasDenticon,
     hasCloud9: !!parsed.hasCloud9,
     hasApteryx: !!parsed.hasApteryx,

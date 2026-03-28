@@ -26,6 +26,16 @@ export type ChecklistItem = {
 };
 
 
+
+export type Specialty = 'Ortho' | 'Pediatric' | 'General Dental' | 'OMS' | 'Periodontist' | 'Endodontist';
+
+export type SpecialtyCoverage = {
+  specialty: Specialty;
+  selected: boolean;
+  totalLocations: string;
+  usingPlanetDDS: string;
+};
+
 export type StakeholderSentiment = 'promoter' | 'neutral' | 'detractor' | 'unknown';
 
 export type StakeholderContact = {
@@ -95,6 +105,7 @@ export type AccountRecord = {
   executiveSponsor: string;
   operationalChampion: string;
   stakeholders: StakeholderContact[];
+  specialtyCoverage: SpecialtyCoverage[];
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

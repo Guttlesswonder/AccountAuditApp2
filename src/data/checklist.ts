@@ -10,8 +10,6 @@ export const sectionLabels: Record<SectionId, string> = {
 };
 
 export const checklistItems: ChecklistItem[] = [
-  { id: 'location_coverage', sectionId: 'commercial_terms', text: 'How many locations are currently using our software versus total customer locations?', gate: ['relationship', 'growth', 'executive_review'], category: 'commercial', kind: 'coverage', mode: 'simple', important: true },
-  { id: 'specialty_mix', sectionId: 'commercial_terms', text: 'What specialties are represented across the account (General Dentistry, Ortho, OMS, Perio, Endo, or mixed)?', gate: ['relationship', 'growth', 'executive_review'], category: 'commercial', kind: 'coverage', mode: 'simple' },
   { id: 'commercial_blockers', sectionId: 'commercial_terms', text: 'Commercial blockers / contract limitations with vendor names and timing windows (for example: third-party contracts and end dates).', gate: ['retention', 'growth', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },
 
   { id: 'growth_plan', sectionId: 'growth_practice', text: 'What are their growth plans, and do they grow via acquisition, de novo, or both?', gate: ['growth', 'executive_review'], category: 'commercial', kind: 'opportunity', mode: 'simple' },
