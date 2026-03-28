@@ -25,6 +25,18 @@ export type ChecklistItem = {
   important?: boolean;
 };
 
+
+export type StakeholderSentiment = 'promoter' | 'neutral' | 'detractor' | 'unknown';
+
+export type StakeholderContact = {
+  id: string;
+  name: string;
+  title: string;
+  functionArea: string;
+  sentiment: StakeholderSentiment;
+  notes: string;
+};
+
 export type ResponseRecord = {
   status: VisibleStatus;
   answer: string;
@@ -78,6 +90,11 @@ export type AccountRecord = {
   accountManager: string;
   segment: string;
   reviewLens: ReviewLens;
+  decisionModelType: string;
+  decisionModelNarrative: string;
+  executiveSponsor: string;
+  operationalChampion: string;
+  stakeholders: StakeholderContact[];
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

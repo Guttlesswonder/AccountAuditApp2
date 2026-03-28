@@ -30,7 +30,7 @@ export function deriveOpportunities(account: AccountRecord): OpportunityItem[] {
     if (account.hasDenticon) suggest('AI Voice Perio', 'Denticon', 'AI', 'Clinical AI conversation surfaced.', 'advanced_tools', 'low');
   }
   if (has('3d') || has('imaging')) suggest('XVWeb 3D Module', account.hasApteryx ? 'Apteryx' : 'Denticon', 'Imaging', '3D/imaging gap identified.', 'advanced_tools');
-  if (has('sso') || has('identity')) suggest('Single-Sign On', 'Denticon', 'Identity', 'Identity friction indicated by stakeholders.', 'stakeholder_coverage');
+  if (has('sso') || has('identity')) suggest('Single-Sign On', 'Denticon', 'Identity', 'Identity friction indicated by stakeholders.', 'people_ownership');
   if (has('ortho') && account.hasDenticon) suggest('Ortho Suite', 'Denticon', 'Specialty', 'Ortho workflow demand surfaced.', 'growth_plan');
 
   return candidates.filter((item, idx, arr) => arr.findIndex((x) => x.title === item.title && x.platform === item.platform) === idx);

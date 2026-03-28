@@ -19,9 +19,15 @@ import { deriveRiskRegister } from './lib/readiness';
 import { calculateScores, labelForMetric } from './lib/scoring';
 import { appStateStorage } from './lib/storage';
 import { createEmptyAccount, createInitialState, deleteAccount, duplicateAccount, upsertAccount } from './lib/state';
-import type { AccountRecord, ActionItem, AppState, SectionId } from './types';
+import type { AccountRecord, ActionItem, AppState, SectionId, StakeholderContact } from './types';
 
 const termsStore = new IndexedDbTermsStore();
+const decisionModels = [
+  'Top-down centralized management-driven adoption',
+  'Practice-by-practice local adoption',
+  'Operations-driven consolidation across legacy software and preferred vendors',
+  'Other',
+];
 
 function downloadText(filename: string, content: string) {
   const blob = new Blob([content], { type: 'application/json' });
@@ -118,8 +124,8 @@ export default function App() {
             <div className="grid md:grid-cols-2 gap-3">
               <div className="card"><div className="label">Terms at a glance</div><p className="text-sm mt-2 whitespace-pre-wrap">{current.termsSummary || 'No terms summary yet.'}</p></div>
               <div className="card"><div className="label">Current footprint</div><p className="text-sm mt-2">{[current.hasDenticon && 'Denticon', current.hasCloud9 && 'Cloud 9', current.hasApteryx && 'Apteryx'].filter(Boolean).join(', ') || 'No active platform selected.'}</p></div>
-              <div className="card"><div className="label">Top risks</div><ul className="text-sm mt-2 list-disc pl-5">{risks.slice(0,3).map((r) => <li key={r.id}>{r.prompt}</li>)}</ul></div>
-              <div className="card"><div className="label">Top opportunities</div><ul className="text-sm mt-2 list-disc pl-5">{opportunities.slice(0,3).map((o) => <li key={o.id}>{o.title}</li>)}</ul></div>
+              <div className="card"><div className="label">Top risks</div><ul className="text-sm mt-2 list-disc pl-5">{risks.slice(0, 3).map((r) => <li key={r.id}>{r.prompt}</li>)}</ul></div>
+              <div className="card"><div className="label">Top opportunities</div><ul className="text-sm mt-2 list-disc pl-5">{opportunities.slice(0, 3).map((o) => <li key={o.id}>{o.title}</li>)}</ul></div>
             </div>
             <div className="card"><div className="label">Next 3 actions</div><ol className="mt-2 text-sm list-decimal pl-5">{current.actions.slice(0, 3).map((a) => <li key={a.id}>{a.title} ({a.owner || 'Unassigned'})</li>)}</ol></div>
           </div>}
@@ -130,6 +136,7 @@ export default function App() {
               <div className="space-y-3 mt-3">
                 {sectionId === 'commercial_terms' && <>
                   <label className="label">Terms Summary</label>
+                  <p className="text-xs text-slate-600">Document renewal timing, pricing structure, and notable commercial constraints here.</p>
                   <textarea className="input min-h-24" value={current.termsSummary} onChange={(e) => saveAccount({ ...current, termsSummary: e.target.value })} />
                   <TermsAttachmentPanel attachment={current.termsAttachment} onUpload={async (file) => {
                     const meta = await termsStore.put(current.id, file);
@@ -144,7 +151,66 @@ export default function App() {
                     saveAccount({ ...current, termsAttachment: null });
                   }} />
                 </>}
-                {checklistItems.filter((i) => i.sectionId === sectionId).map((item) => <SectionItemCard key={item.id} item={item} response={current.responses[item.id]} onChange={(response) => saveAccount({ ...current, responses: { ...current.responses, [item.id]: response } })} onCreateAction={() => createActionFromPrompt(item.id, item.kind === 'opportunity' ? 'opportunity' : item.kind === 'risk' ? 'risk' : 'follow_up')} />)}
+
+                {sectionId === 'people_ownership' && <div className="space-y-3 border rounded p-3 bg-slate-50">
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm">Executive Sponsor<input className="input" value={current.executiveSponsor} onChange={(e) => saveAccount({ ...current, executiveSponsor: e.target.value })} /></label>
+                    <label className="text-sm">Operational Champion<input className="input" value={current.operationalChampion} onChange={(e) => saveAccount({ ...current, operationalChampion: e.target.value })} /></label>
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm">Decision Model
+                      <select className="input" value={current.decisionModelType} onChange={(e) => saveAccount({ ...current, decisionModelType: e.target.value })}>
+                        <option value="">Select...</option>
+                        {decisionModels.map((option) => <option key={option} value={option}>{option}</option>)}
+                      </select>
+                    </label>
+                    <label className="text-sm">Decision Summary<textarea className="input min-h-20" value={current.decisionModelNarrative} onChange={(e) => saveAccount({ ...current, decisionModelNarrative: e.target.value })} /></label>
+                  </div>
+                  <div>
+                    <div className="label">Key contacts (expandable list)</div>
+                    <button className="btn-outline my-2" onClick={() => {
+                      const next: StakeholderContact = { id: crypto.randomUUID(), name: '', title: '', functionArea: '', sentiment: 'unknown', notes: '' };
+                      saveAccount({ ...current, stakeholders: [...current.stakeholders, next] });
+                    }}>Add Contact</button>
+                    <div className="space-y-2">
+                      {current.stakeholders.map((s, idx) => <div key={s.id} className="grid md:grid-cols-6 gap-2 border rounded p-2 bg-white">
+                        <input className="input" placeholder="Name" value={s.name} onChange={(e) => {
+                          const stakeholders = [...current.stakeholders]; stakeholders[idx] = { ...s, name: e.target.value }; saveAccount({ ...current, stakeholders });
+                        }} />
+                        <input className="input" placeholder="Title" value={s.title} onChange={(e) => {
+                          const stakeholders = [...current.stakeholders]; stakeholders[idx] = { ...s, title: e.target.value }; saveAccount({ ...current, stakeholders });
+                        }} />
+                        <input className="input" placeholder="Function" value={s.functionArea} onChange={(e) => {
+                          const stakeholders = [...current.stakeholders]; stakeholders[idx] = { ...s, functionArea: e.target.value }; saveAccount({ ...current, stakeholders });
+                        }} />
+                        <select className="input" value={s.sentiment} onChange={(e) => {
+                          const stakeholders = [...current.stakeholders]; stakeholders[idx] = { ...s, sentiment: e.target.value as StakeholderContact['sentiment'] }; saveAccount({ ...current, stakeholders });
+                        }}><option value="promoter">promoter</option><option value="neutral">neutral</option><option value="detractor">detractor</option><option value="unknown">unknown</option></select>
+                        <input className="input md:col-span-2" placeholder="Notes" value={s.notes} onChange={(e) => {
+                          const stakeholders = [...current.stakeholders]; stakeholders[idx] = { ...s, notes: e.target.value }; saveAccount({ ...current, stakeholders });
+                        }} />
+                        <button className="btn-outline md:col-span-6" onClick={() => saveAccount({ ...current, stakeholders: current.stakeholders.filter((row) => row.id !== s.id) })}>Remove contact</button>
+                      </div>)}
+                    </div>
+                  </div>
+                </div>}
+
+                {checklistItems.filter((i) => i.sectionId === sectionId).map((item) => {
+                  if (item.id === 'commercial_blockers') {
+                    const response = current.responses[item.id];
+                    return <div className="border rounded p-3 space-y-2 bg-white" key={item.id}>
+                      <div className="text-sm font-medium">{item.text}</div>
+                      <textarea className="input min-h-24" placeholder="Example: Vendor X contract until 2028, renewal discussion starts Q4 2027..." value={response?.answer ?? ''} onChange={(e) => saveAccount({ ...current, responses: { ...current.responses, [item.id]: { ...response, answer: e.target.value } } })} />
+                      <div className="grid md:grid-cols-3 gap-2">
+                        <input className="input" placeholder="Next step (optional)" value={response?.followUpNote ?? ''} onChange={(e) => saveAccount({ ...current, responses: { ...current.responses, [item.id]: { ...response, followUpNote: e.target.value } } })} />
+                        <input className="input" placeholder="Owner (optional)" value={response?.owner ?? ''} onChange={(e) => saveAccount({ ...current, responses: { ...current.responses, [item.id]: { ...response, owner: e.target.value } } })} />
+                        <input type="date" className="input" value={response?.dueDate ?? ''} onChange={(e) => saveAccount({ ...current, responses: { ...current.responses, [item.id]: { ...response, dueDate: e.target.value } } })} />
+                      </div>
+                      <button className="btn-outline" onClick={() => createActionFromPrompt(item.id, 'risk')}>Create action from blockers</button>
+                    </div>;
+                  }
+                  return <SectionItemCard key={item.id} item={item} response={current.responses[item.id]} onChange={(response) => saveAccount({ ...current, responses: { ...current.responses, [item.id]: response } })} onCreateAction={() => createActionFromPrompt(item.id, item.kind === 'opportunity' ? 'opportunity' : item.kind === 'risk' ? 'risk' : 'follow_up')} />;
+                })}
               </div>
             </details>
           ))}</div>}

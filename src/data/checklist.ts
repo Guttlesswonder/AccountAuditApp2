@@ -10,15 +10,9 @@ export const sectionLabels: Record<SectionId, string> = {
 };
 
 export const checklistItems: ChecklistItem[] = [
-  { id: 'terms_overview', sectionId: 'commercial_terms', text: 'What are our terms with the customer, including renewal timing, pricing structure, and notable commercial constraints?', gate: ['relationship', 'retention', 'executive_review'], category: 'commercial', kind: 'health', mode: 'simple', important: true },
-  { id: 'products_purchased', sectionId: 'commercial_terms', text: 'Which products have they purchased today?', gate: ['relationship', 'growth', 'executive_review'], category: 'commercial', kind: 'coverage', mode: 'simple' },
-  { id: 'software_footprint', sectionId: 'commercial_terms', text: 'What is the current software footprint by platform, location type, or business unit?', gate: ['relationship', 'growth', 'executive_review'], category: 'technology', kind: 'coverage', mode: 'simple' },
-  { id: 'commercial_blockers', sectionId: 'commercial_terms', text: 'Are there any commercial blockers or contract limitations that may affect retention or expansion?', gate: ['retention', 'growth', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },
-
-  { id: 'key_contacts', sectionId: 'people_ownership', text: 'Who are the key contacts across Leadership, Clinical, Operations, and IT?', gate: ['relationship', 'retention', 'executive_review'], category: 'people', kind: 'coverage', mode: 'simple' },
-  { id: 'functional_owners', sectionId: 'people_ownership', text: 'Who oversees RCM, Insurance, IT, Marketing, and Support?', gate: ['relationship', 'retention'], category: 'people', kind: 'coverage', mode: 'simple' },
-  { id: 'decision_model', sectionId: 'people_ownership', text: 'How are decisions made, and how much influence does the organization have over individual practices?', gate: ['relationship', 'growth', 'executive_review'], category: 'people', kind: 'health', mode: 'simple' },
-  { id: 'stakeholder_coverage', sectionId: 'people_ownership', text: 'Do we have strong stakeholder coverage, including an executive sponsor and day to day operational champion?', gate: ['relationship', 'retention', 'executive_review'], category: 'people', kind: 'risk', mode: 'flaggable', important: true },
+  { id: 'location_coverage', sectionId: 'commercial_terms', text: 'How many locations are currently using our software versus total customer locations?', gate: ['relationship', 'growth', 'executive_review'], category: 'commercial', kind: 'coverage', mode: 'simple', important: true },
+  { id: 'specialty_mix', sectionId: 'commercial_terms', text: 'What specialties are represented across the account (General Dentistry, Ortho, OMS, Perio, Endo, or mixed)?', gate: ['relationship', 'growth', 'executive_review'], category: 'commercial', kind: 'coverage', mode: 'simple' },
+  { id: 'commercial_blockers', sectionId: 'commercial_terms', text: 'Commercial blockers / contract limitations with vendor names and timing windows (for example: third-party contracts and end dates).', gate: ['retention', 'growth', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },
 
   { id: 'growth_plan', sectionId: 'growth_practice', text: 'What are their growth plans, and do they grow via acquisition, de novo, or both?', gate: ['growth', 'executive_review'], category: 'commercial', kind: 'opportunity', mode: 'simple' },
   { id: 'funding_structure', sectionId: 'growth_practice', text: 'Are they PE backed, self funded, or another structure that affects growth decisions?', gate: ['growth', 'executive_review'], category: 'commercial', kind: 'health', mode: 'simple' },
