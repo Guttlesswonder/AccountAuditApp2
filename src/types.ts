@@ -106,6 +106,11 @@ export type AccountRecord = {
   operationalChampion: string;
   stakeholders: StakeholderContact[];
   specialtyCoverage: SpecialtyCoverage[];
+  growthPlanType: '' | 'de_novo' | 'acquisition' | 'both';
+  fundingModelType: '' | 'pe_backed' | 'self_funded' | 'other';
+  standardizationCurrent: string;
+  standardizationVaries: string;
+  standardizationTarget: string;
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

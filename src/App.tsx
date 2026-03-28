@@ -184,6 +184,34 @@ export default function App() {
                   </div>
                 </div>}
 
+
+
+                {sectionId === 'growth_practice' && <div className="space-y-3 border rounded p-3 bg-slate-50">
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm">Growth Plan
+                      <select className="input" value={current.growthPlanType} onChange={(e) => saveAccount({ ...current, growthPlanType: e.target.value as AccountRecord['growthPlanType'] })}>
+                        <option value="">Select...</option>
+                        <option value="de_novo">De novo / scratch</option>
+                        <option value="acquisition">Acquisition</option>
+                        <option value="both">Both</option>
+                      </select>
+                    </label>
+                    <label className="text-sm">Funding Model
+                      <select className="input" value={current.fundingModelType} onChange={(e) => saveAccount({ ...current, fundingModelType: e.target.value as AccountRecord['fundingModelType'] })}>
+                        <option value="">Select...</option>
+                        <option value="pe_backed">PE-backed</option>
+                        <option value="self_funded">Self-funded</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </label>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-2">
+                    <label className="text-sm">Already standardized<textarea className="input min-h-20" value={current.standardizationCurrent} onChange={(e) => saveAccount({ ...current, standardizationCurrent: e.target.value })} /></label>
+                    <label className="text-sm">Still varies<textarea className="input min-h-20" value={current.standardizationVaries} onChange={(e) => saveAccount({ ...current, standardizationVaries: e.target.value })} /></label>
+                    <label className="text-sm">Wants to standardize<textarea className="input min-h-20" value={current.standardizationTarget} onChange={(e) => saveAccount({ ...current, standardizationTarget: e.target.value })} /></label>
+                  </div>
+                </div>}
+
                 {sectionId === 'people_ownership' && <div className="space-y-3 border rounded p-3 bg-slate-50">
                   <div className="grid md:grid-cols-2 gap-2">
                     <label className="text-sm">Executive Sponsor<input className="input" value={current.executiveSponsor} onChange={(e) => saveAccount({ ...current, executiveSponsor: e.target.value })} /></label>

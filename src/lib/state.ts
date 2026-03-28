@@ -3,7 +3,7 @@ import { productCatalog } from '../data/productCatalog';
 import type { AccountRecord, AppState, Specialty } from '../types';
 import { normalizeResponse } from './checklist';
 
-const specialtyOptions: Specialty[] = ['Ortho', 'Pediatric', 'General Dental', 'OMS', 'Periodontist', 'Endodontist'];
+const specialtyOptions: Specialty[] = ['General Dental', 'Ortho', 'Pediatric', 'OMS', 'Periodontist', 'Endodontist'];
 
 const emptySpecialtyCoverage = () => specialtyOptions.map((specialty) => ({ specialty, selected: false, totalLocations: '', usingPlanetDDS: '' }));
 
@@ -22,6 +22,11 @@ export function createEmptyAccount(name = 'New Account'): AccountRecord {
     operationalChampion: '',
     stakeholders: [],
     specialtyCoverage: emptySpecialtyCoverage(),
+    growthPlanType: '',
+    fundingModelType: '',
+    standardizationCurrent: '',
+    standardizationVaries: '',
+    standardizationTarget: '',
     hasDenticon: true,
     hasCloud9: false,
     hasApteryx: false,

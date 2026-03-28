@@ -2,9 +2,9 @@ import type { AccountRecord, AppState } from '../types';
 
 
 const defaultSpecialtyCoverage = [
+  'General Dental',
   'Ortho',
   'Pediatric',
-  'General Dental',
   'OMS',
   'Periodontist',
   'Endodontist',
@@ -33,6 +33,11 @@ export function parseImportedAccount(raw: string): AccountRecord {
     operationalChampion: parsed.operationalChampion ?? '',
     stakeholders: parsed.stakeholders ?? [],
     specialtyCoverage: parsed.specialtyCoverage ?? defaultSpecialtyCoverage,
+    growthPlanType: parsed.growthPlanType ?? '',
+    fundingModelType: parsed.fundingModelType ?? '',
+    standardizationCurrent: parsed.standardizationCurrent ?? '',
+    standardizationVaries: parsed.standardizationVaries ?? '',
+    standardizationTarget: parsed.standardizationTarget ?? '',
     hasDenticon: !!parsed.hasDenticon,
     hasCloud9: !!parsed.hasCloud9,
     hasApteryx: !!parsed.hasApteryx,

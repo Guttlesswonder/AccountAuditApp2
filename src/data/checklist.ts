@@ -12,10 +12,7 @@ export const sectionLabels: Record<SectionId, string> = {
 export const checklistItems: ChecklistItem[] = [
   { id: 'commercial_blockers', sectionId: 'commercial_terms', text: 'Commercial blockers / contract limitations with vendor names and timing windows (for example: third-party contracts and end dates).', gate: ['retention', 'growth', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },
 
-  { id: 'growth_plan', sectionId: 'growth_practice', text: 'What are their growth plans, and do they grow via acquisition, de novo, or both?', gate: ['growth', 'executive_review'], category: 'commercial', kind: 'opportunity', mode: 'simple' },
-  { id: 'funding_structure', sectionId: 'growth_practice', text: 'Are they PE backed, self funded, or another structure that affects growth decisions?', gate: ['growth', 'executive_review'], category: 'commercial', kind: 'health', mode: 'simple' },
   { id: 'last_12m_growth', sectionId: 'growth_practice', text: 'What growth have they seen in the last 12 months?', gate: ['growth', 'executive_review'], category: 'commercial', kind: 'health', mode: 'simple' },
-  { id: 'standardization', sectionId: 'growth_practice', text: 'What is already standardized across locations, what still varies, and what do they want to standardize?', gate: ['growth', 'relationship'], category: 'process', kind: 'opportunity', mode: 'simple' },
 
   { id: 'operations_centralized', sectionId: 'operations_centralization', text: 'Are systems and workflows managed centrally or by location?', gate: ['relationship', 'retention', 'executive_review'], category: 'process', kind: 'health', mode: 'simple' },
   { id: 'decentralized_impact', sectionId: 'operations_centralization', text: 'If operations are not centralized, is that causing frustration, inconsistency, or impact to collections?', gate: ['retention', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },

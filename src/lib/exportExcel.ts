@@ -21,6 +21,8 @@ export function workbookForAccount(account: AccountRecord) {
     ExecutiveSponsor: account.executiveSponsor,
     OperationalChampion: account.operationalChampion,
     DecisionModel: account.decisionModelType,
+    GrowthPlan: account.growthPlanType,
+    FundingModel: account.fundingModelType,
     SpecialtyCoverage: account.specialtyCoverage.filter((s) => s.selected).map((s) => `${s.specialty}: ${s.usingPlanetDDS}/${s.totalLocations}`).join('; '),
     RelationshipHealth: labelForMetric('relationship', scores.relationshipHealth),
     RetentionRisk: labelForMetric('retention', scores.retentionRisk),
