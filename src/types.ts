@@ -111,6 +111,12 @@ export type AccountRecord = {
   standardizationCurrent: string;
   standardizationVaries: string;
   standardizationTarget: string;
+  locationsAdded12m: string;
+  locationsSold12m: string;
+  growth12mContext: string;
+  operationsModel: '' | 'centralized' | 'by_location' | 'mix';
+  operationsPainPoints: string[];
+  operationsPainPointNote: string;
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

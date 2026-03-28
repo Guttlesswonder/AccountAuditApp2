@@ -206,6 +206,11 @@ export default function App() {
                     </label>
                   </div>
                   <div className="grid md:grid-cols-3 gap-2">
+                    <label className="text-sm">Locations added (last 12 months)<input className="input" value={current.locationsAdded12m} onChange={(e) => saveAccount({ ...current, locationsAdded12m: e.target.value })} /></label>
+                    <label className="text-sm">Locations sold (last 12 months)<input className="input" value={current.locationsSold12m} onChange={(e) => saveAccount({ ...current, locationsSold12m: e.target.value })} /></label>
+                    <label className="text-sm">12-month growth context<textarea className="input min-h-20" value={current.growth12mContext} onChange={(e) => saveAccount({ ...current, growth12mContext: e.target.value })} /></label>
+                  </div>
+                  <div className="grid md:grid-cols-3 gap-2">
                     <label className="text-sm">Already standardized<textarea className="input min-h-20" value={current.standardizationCurrent} onChange={(e) => saveAccount({ ...current, standardizationCurrent: e.target.value })} /></label>
                     <label className="text-sm">Still varies<textarea className="input min-h-20" value={current.standardizationVaries} onChange={(e) => saveAccount({ ...current, standardizationVaries: e.target.value })} /></label>
                     <label className="text-sm">Wants to standardize<textarea className="input min-h-20" value={current.standardizationTarget} onChange={(e) => saveAccount({ ...current, standardizationTarget: e.target.value })} /></label>
@@ -251,6 +256,35 @@ export default function App() {
                         }} />
                         <button className="btn-outline md:col-span-6" onClick={() => saveAccount({ ...current, stakeholders: current.stakeholders.filter((row) => row.id !== s.id) })}>Remove contact</button>
                       </div>)}
+                    </div>
+                  </div>
+                </div>}
+
+
+
+                {sectionId === 'operations_centralization' && <div className="space-y-3 border rounded p-3 bg-slate-50">
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm">Operating model
+                      <select className="input" value={current.operationsModel} onChange={(e) => saveAccount({ ...current, operationsModel: e.target.value as AccountRecord['operationsModel'] })}>
+                        <option value="">Select...</option>
+                        <option value="centralized">Centralized</option>
+                        <option value="by_location">By location</option>
+                        <option value="mix">Mix</option>
+                      </select>
+                    </label>
+                    <label className="text-sm">Pain point summary<textarea className="input min-h-20" value={current.operationsPainPointNote} onChange={(e) => saveAccount({ ...current, operationsPainPointNote: e.target.value })} /></label>
+                  </div>
+                  <div>
+                    <div className="label">Operational pain points</div>
+                    <div className="grid md:grid-cols-3 gap-2 mt-2">
+                      {['RCM', 'Growth', 'Collections', 'Workflow Consistency', 'Patient Experience', 'Reporting'].map((pain) => (
+                        <label key={pain} className="text-sm"><input type="checkbox" checked={current.operationsPainPoints.includes(pain)} onChange={(e) => {
+                          const next = e.target.checked
+                            ? [...current.operationsPainPoints, pain]
+                            : current.operationsPainPoints.filter((p) => p !== pain);
+                          saveAccount({ ...current, operationsPainPoints: next });
+                        }} /> {pain}</label>
+                      ))}
                     </div>
                   </div>
                 </div>}
