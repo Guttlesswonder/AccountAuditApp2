@@ -2,7 +2,7 @@ import type { AccountRecord } from '../types';
 
 export function HeaderBar({ account, onSaveSnapshot, controls }: { account: AccountRecord; onSaveSnapshot: () => void; controls: React.ReactNode }) {
   return (
-    <header className="flex items-end justify-between bg-white border-b px-6 py-4">
+    <header className="flex items-end justify-between bg-white/95 backdrop-blur border-b border-slate-100 px-6 py-4">
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
         <label>Account<input className="input" value={account.accountName} readOnly /></label>
         <label>CRM Ref<input className="input" value={account.crmRef} readOnly /></label>
