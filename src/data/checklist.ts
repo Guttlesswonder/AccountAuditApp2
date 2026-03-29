@@ -12,10 +12,7 @@ export const sectionLabels: Record<SectionId, string> = {
 export const checklistItems: ChecklistItem[] = [
   { id: 'commercial_blockers', sectionId: 'commercial_terms', text: 'Commercial blockers / contract limitations with vendor names and timing windows (for example: third-party contracts and end dates).', gate: ['retention', 'growth', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },
 
-  { id: 'platform_standardization', sectionId: 'technology_data_vendors', text: 'Are they using multiple systems or standardized platforms?', gate: ['relationship', 'growth', 'executive_review'], category: 'technology', kind: 'health', mode: 'simple' },
   { id: 'advanced_tools', sectionId: 'technology_data_vendors', text: 'Do they use 3D technology, AI tools, or other advanced partners? If yes, which ones?', gate: ['growth', 'executive_review'], category: 'technology', kind: 'opportunity', mode: 'simple' },
-  { id: 'bi_maturity', sectionId: 'technology_data_vendors', text: 'Do they have a data warehouse, and is BI handled in house or outsourced?', gate: ['growth', 'executive_review'], category: 'technology', kind: 'opportunity', mode: 'simple' },
-  { id: 'vendor_landscape', sectionId: 'technology_data_vendors', text: 'What vendors are they using today, what services do those vendors provide, and where are the gaps or limitations?', gate: ['relationship', 'retention', 'growth'], category: 'technology', kind: 'risk', mode: 'simple' },
 
   { id: 'sentiment', sectionId: 'health_risk_growth', text: 'What is the current overall sentiment of the customer, leadership, operational, and technical?', gate: ['relationship', 'retention', 'executive_review'], category: 'risk', kind: 'health', mode: 'simple', important: true },
   { id: 'retention_risks', sectionId: 'health_risk_growth', text: 'What are the top retention risks or pressure points right now?', gate: ['retention', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },

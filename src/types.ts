@@ -119,6 +119,12 @@ export type AccountRecord = {
   operationsPainPointNote: string;
   patientCommunicationModel: string;
   insuranceProcessingModel: string;
+  thirdPartyVendorsSummary: string;
+  technologyGapSummary: string;
+  vendorPainPointSummary: string;
+  solveByProductOrRoadmap: string;
+  hasDataWarehouse: boolean;
+  dataWarehouseTools: string;
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

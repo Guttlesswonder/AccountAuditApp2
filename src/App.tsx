@@ -297,6 +297,31 @@ export default function App() {
                   </div>
                 </div>}
 
+
+
+                {sectionId === 'technology_data_vendors' && <div className="space-y-3 border rounded p-3 bg-slate-50">
+                  <label className="text-sm">Third-party vendors in use (outside Planet DDS)
+                    <textarea className="input min-h-20" value={current.thirdPartyVendorsSummary} onChange={(e) => saveAccount({ ...current, thirdPartyVendorsSummary: e.target.value })} />
+                  </label>
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm">Technology gaps they want to close
+                      <textarea className="input min-h-20" value={current.technologyGapSummary} onChange={(e) => saveAccount({ ...current, technologyGapSummary: e.target.value })} />
+                    </label>
+                    <label className="text-sm">Current vendor pain points / limitations
+                      <textarea className="input min-h-20" value={current.vendorPainPointSummary} onChange={(e) => saveAccount({ ...current, vendorPainPointSummary: e.target.value })} />
+                    </label>
+                  </div>
+                  <label className="text-sm">Could any pain points be solved by our products or roadmap features?
+                    <textarea className="input min-h-20" value={current.solveByProductOrRoadmap} onChange={(e) => saveAccount({ ...current, solveByProductOrRoadmap: e.target.value })} />
+                  </label>
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm"><input type="checkbox" checked={current.hasDataWarehouse} onChange={(e) => saveAccount({ ...current, hasDataWarehouse: e.target.checked })} /> Has data warehouse</label>
+                    {current.hasDataWarehouse && <label className="text-sm">Tools used for central reporting / BI
+                      <input className="input" value={current.dataWarehouseTools} onChange={(e) => saveAccount({ ...current, dataWarehouseTools: e.target.value })} />
+                    </label>}
+                  </div>
+                </div>}
+
                 {checklistItems.filter((i) => i.sectionId === sectionId).map((item) => {
                   if (item.id === 'commercial_blockers') {
                     const response = current.responses[item.id];
