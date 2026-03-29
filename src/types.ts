@@ -47,6 +47,30 @@ export type StakeholderContact = {
   notes: string;
 };
 
+export type AssessmentConfidence = '' | 'High' | 'Medium' | 'Low';
+
+export type SentimentScore = '' | 'Very Positive' | 'Positive' | 'Mixed' | 'Negative' | 'Critical';
+export type RetentionRiskScore = '' | 'Low Risk' | 'Moderate Risk' | 'High Risk' | 'Critical Risk';
+export type OpportunityScore = '' | 'Strong Opportunity' | 'Qualified Opportunity' | 'Early Opportunity' | 'Limited Opportunity' | 'No Clear Opportunity';
+export type ActionReadinessScore = '' | 'Immediate Action Needed' | 'High Priority' | 'Medium Priority' | 'Low Priority';
+
+export type RiskEntry = { id: string; title: string; severity: string; likelihood: string; timing: string; notes: string };
+export type OpportunityEntry = { id: string; name: string; productMotion: string; whyFit: string; timing: string; value: string };
+export type ActionAssessmentEntry = { id: string; action: string; owner: string; targetDate: string; audience: 'internal' | 'customer'; priority: string; notes: string };
+
+export type AssessmentBlock<TScore extends string, TEntry = never> = {
+  questionType: string;
+  overallScore: TScore;
+  confidence: AssessmentConfidence;
+  rationale: string;
+  evidence: string;
+  evidenceDate: string;
+  owner?: string;
+  relatedNextStep?: string;
+  tags?: string;
+  entries: TEntry[];
+};
+
 export type ResponseRecord = {
   status: VisibleStatus;
   answer: string;
@@ -125,6 +149,10 @@ export type AccountRecord = {
   solveByProductOrRoadmap: string;
   hasDataWarehouse: boolean;
   dataWarehouseTools: string;
+  sentimentAssessment: AssessmentBlock<SentimentScore>;
+  retentionAssessment: AssessmentBlock<RetentionRiskScore, RiskEntry>;
+  opportunityAssessment: AssessmentBlock<OpportunityScore, OpportunityEntry>;
+  nextActionAssessment: AssessmentBlock<ActionReadinessScore, ActionAssessmentEntry>;
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

@@ -35,6 +35,10 @@ export function workbookForAccount(account: AccountRecord) {
     SolveByProductOrRoadmap: account.solveByProductOrRoadmap,
     HasDataWarehouse: account.hasDataWarehouse ? 'Yes' : 'No',
     DataWarehouseTools: account.dataWarehouseTools,
+    SentimentScore: account.sentimentAssessment.overallScore,
+    RetentionRiskScore: account.retentionAssessment.overallScore,
+    OpportunityScore: account.opportunityAssessment.overallScore,
+    NextActionPriority: account.nextActionAssessment.overallScore,
     SpecialtyCoverage: account.specialtyCoverage.filter((s) => s.selected).map((s) => `${s.specialty}: ${s.usingPlanetDDS}/${s.totalLocations}`).join('; '),
     RelationshipHealth: labelForMetric('relationship', scores.relationshipHealth),
     RetentionRisk: labelForMetric('retention', scores.retentionRisk),
@@ -59,6 +63,12 @@ export function workbookForAccount(account: AccountRecord) {
     ['Snapshots', account.snapshots],
     ['Risk Register', deriveRiskRegister(account)],
     ['Opportunity Register', deriveOpportunities(account)],
+    ['Health Assessment', [
+      { Block: 'Sentiment', Score: account.sentimentAssessment.overallScore, Confidence: account.sentimentAssessment.confidence, Rationale: account.sentimentAssessment.rationale, Evidence: account.sentimentAssessment.evidence, EvidenceDate: account.sentimentAssessment.evidenceDate },
+      { Block: 'Retention', Score: account.retentionAssessment.overallScore, Confidence: account.retentionAssessment.confidence, Rationale: account.retentionAssessment.rationale, Evidence: account.retentionAssessment.evidence, EvidenceDate: account.retentionAssessment.evidenceDate },
+      { Block: 'Whitespace', Score: account.opportunityAssessment.overallScore, Confidence: account.opportunityAssessment.confidence, Rationale: account.opportunityAssessment.rationale, Evidence: account.opportunityAssessment.evidence, EvidenceDate: account.opportunityAssessment.evidenceDate },
+      { Block: 'Next Actions', Score: account.nextActionAssessment.overallScore, Confidence: account.nextActionAssessment.confidence, Rationale: account.nextActionAssessment.rationale, Evidence: account.nextActionAssessment.evidence, EvidenceDate: account.nextActionAssessment.evidenceDate },
+    ]],
   ];
 
   tabs.forEach(([name, rows]) => XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(rows), name));

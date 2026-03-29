@@ -6,7 +6,7 @@ describe('opportunity rules', () => {
   it('derives opportunities from responses', () => {
     const state = createInitialState();
     const account = state.accounts[0];
-    account.responses.patient_communication.answer = 'Patient communication is fragmented';
+    account.patientCommunicationModel = 'Patient communication is fragmented';
     const items = deriveOpportunities(account);
     expect(items.length).toBeGreaterThan(0);
   });
