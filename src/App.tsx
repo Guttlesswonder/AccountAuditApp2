@@ -274,6 +274,14 @@ export default function App() {
                     </label>
                     <label className="text-sm">Pain point summary<textarea className="input min-h-20" value={current.operationsPainPointNote} onChange={(e) => saveAccount({ ...current, operationsPainPointNote: e.target.value })} /></label>
                   </div>
+                  <div className="grid md:grid-cols-2 gap-2">
+                    <label className="text-sm">How do they currently manage patient communication?
+                      <textarea className="input min-h-20" value={current.patientCommunicationModel} onChange={(e) => saveAccount({ ...current, patientCommunicationModel: e.target.value })} />
+                    </label>
+                    <label className="text-sm">How are insurance payments processed (office level, central, vendor-assisted)?
+                      <textarea className="input min-h-20" value={current.insuranceProcessingModel} onChange={(e) => saveAccount({ ...current, insuranceProcessingModel: e.target.value })} />
+                    </label>
+                  </div>
                   <div>
                     <div className="label">Operational pain points</div>
                     <div className="grid md:grid-cols-3 gap-2 mt-2">

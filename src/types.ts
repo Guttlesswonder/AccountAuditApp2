@@ -117,6 +117,8 @@ export type AccountRecord = {
   operationsModel: '' | 'centralized' | 'by_location' | 'mix';
   operationsPainPoints: string[];
   operationsPainPointNote: string;
+  patientCommunicationModel: string;
+  insuranceProcessingModel: string;
   hasDenticon: boolean;
   hasCloud9: boolean;
   hasApteryx: boolean;

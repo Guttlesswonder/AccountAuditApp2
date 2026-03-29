@@ -44,6 +44,8 @@ export function parseImportedAccount(raw: string): AccountRecord {
     operationsModel: parsed.operationsModel ?? '',
     operationsPainPoints: parsed.operationsPainPoints ?? [],
     operationsPainPointNote: parsed.operationsPainPointNote ?? '',
+    patientCommunicationModel: parsed.patientCommunicationModel ?? '',
+    insuranceProcessingModel: parsed.insuranceProcessingModel ?? '',
     hasDenticon: !!parsed.hasDenticon,
     hasCloud9: !!parsed.hasCloud9,
     hasApteryx: !!parsed.hasApteryx,

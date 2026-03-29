@@ -3,7 +3,7 @@ import type { AccountRecord, OpportunityItem } from '../types';
 
 export function deriveOpportunities(account: AccountRecord): OpportunityItem[] {
   const entries = Object.entries(account.responses);
-  const responseText = entries.map(([, r]) => `${r.answer} ${r.followUpNote}`).join(' ').toLowerCase();
+  const responseText = `${entries.map(([, r]) => `${r.answer} ${r.followUpNote}`).join(' ')} ${account.patientCommunicationModel} ${account.insuranceProcessingModel} ${account.operationsPainPointNote}`.toLowerCase();
   const has = (term: string) => responseText.includes(term);
 
   const candidates: OpportunityItem[] = [];

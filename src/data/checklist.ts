@@ -12,9 +12,6 @@ export const sectionLabels: Record<SectionId, string> = {
 export const checklistItems: ChecklistItem[] = [
   { id: 'commercial_blockers', sectionId: 'commercial_terms', text: 'Commercial blockers / contract limitations with vendor names and timing windows (for example: third-party contracts and end dates).', gate: ['retention', 'growth', 'executive_review'], category: 'risk', kind: 'risk', mode: 'flaggable', important: true },
 
-  { id: 'patient_communication', sectionId: 'operations_centralization', text: 'How do they currently manage patient communication?', gate: ['relationship', 'growth', 'executive_review'], category: 'process', kind: 'opportunity', mode: 'simple' },
-  { id: 'insurance_processing', sectionId: 'operations_centralization', text: 'How are insurance payments processed, office level or centrally?', gate: ['relationship', 'retention'], category: 'process', kind: 'health', mode: 'simple' },
-
   { id: 'platform_standardization', sectionId: 'technology_data_vendors', text: 'Are they using multiple systems or standardized platforms?', gate: ['relationship', 'growth', 'executive_review'], category: 'technology', kind: 'health', mode: 'simple' },
   { id: 'advanced_tools', sectionId: 'technology_data_vendors', text: 'Do they use 3D technology, AI tools, or other advanced partners? If yes, which ones?', gate: ['growth', 'executive_review'], category: 'technology', kind: 'opportunity', mode: 'simple' },
   { id: 'bi_maturity', sectionId: 'technology_data_vendors', text: 'Do they have a data warehouse, and is BI handled in house or outsourced?', gate: ['growth', 'executive_review'], category: 'technology', kind: 'opportunity', mode: 'simple' },

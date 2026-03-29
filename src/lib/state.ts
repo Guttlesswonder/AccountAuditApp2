@@ -33,6 +33,8 @@ export function createEmptyAccount(name = 'New Account'): AccountRecord {
     operationsModel: '',
     operationsPainPoints: [],
     operationsPainPointNote: '',
+    patientCommunicationModel: '',
+    insuranceProcessingModel: '',
     hasDenticon: true,
     hasCloud9: false,
     hasApteryx: false,

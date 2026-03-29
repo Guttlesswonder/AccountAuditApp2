@@ -27,6 +27,8 @@ export function workbookForAccount(account: AccountRecord) {
     LocationsSold12m: account.locationsSold12m,
     OperationsModel: account.operationsModel,
     OperationsPainPoints: (account.operationsPainPoints ?? []).join(', '),
+    PatientCommunicationModel: account.patientCommunicationModel,
+    InsuranceProcessingModel: account.insuranceProcessingModel,
     SpecialtyCoverage: account.specialtyCoverage.filter((s) => s.selected).map((s) => `${s.specialty}: ${s.usingPlanetDDS}/${s.totalLocations}`).join('; '),
     RelationshipHealth: labelForMetric('relationship', scores.relationshipHealth),
     RetentionRisk: labelForMetric('retention', scores.retentionRisk),
