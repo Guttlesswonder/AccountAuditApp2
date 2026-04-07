@@ -1,0 +1,26 @@
+import type { ProductDefinition } from '../types';
+
+export const productCatalog: ProductDefinition[] = [
+  { id: 'denticon_xvweb', platform: 'Denticon', name: 'XVWeb' },
+  { id: 'denticon_analytics', platform: 'Denticon', name: 'XVWeb Analytics Dashboard' },
+  { id: 'denticon_3d', platform: 'Denticon', name: 'XVWeb 3D Module' },
+  { id: 'denticon_huddle', platform: 'Denticon', name: 'DPA: Morning Huddle Dashboard' },
+  { id: 'denticon_dashboard_bundle', platform: 'Denticon', name: 'DPA: Dashboard Bundle' },
+  { id: 'denticon_patient_comm', platform: 'Denticon', name: 'Denticon Patient Communication' },
+  { id: 'denticon_mytooth', platform: 'Denticon', name: 'MyTooth' },
+  { id: 'denticon_dxc', platform: 'Denticon', name: 'DXC Attachments' },
+  { id: 'denticon_835', platform: 'Denticon', name: '835 ERA Unlimited' },
+  { id: 'denticon_data_share', platform: 'Denticon', name: 'DPA: Data Share' },
+  { id: 'denticon_autoelig', platform: 'Denticon', name: 'AutoEligibility' },
+  { id: 'denticon_ai_voice_perio', platform: 'Denticon', name: 'AI Voice Perio' },
+  { id: 'denticon_sso', platform: 'Denticon', name: 'Single-Sign On' },
+  { id: 'denticon_ai_agents', platform: 'Denticon', name: 'AI Agents' },
+  { id: 'denticon_ortho', platform: 'Denticon', name: 'Ortho Suite' },
+  { id: 'cloud9_connect', platform: 'Cloud 9', name: 'Connect' },
+  { id: 'cloud9_mytooth', platform: 'Cloud 9', name: 'MyTooth' },
+  { id: 'cloud9_signature', platform: 'Cloud 9', name: 'Signature' },
+  { id: 'cloud9_data_share', platform: 'Cloud 9', name: 'CBS: Data Share' },
+  { id: 'cloud9_ai_agents', platform: 'Cloud 9', name: 'AI Agents' },
+  { id: 'apteryx_3d', platform: 'Apteryx', name: 'XVWeb 3D Module' },
+  { id: 'apteryx_analytics', platform: 'Apteryx', name: 'XVWeb Analytics Dashboard' },
+];
