@@ -108,9 +108,14 @@ export default function App() {
         onJump={jumpToSection}
       />
       <main className="flex-1 overflow-auto">
-        <HeaderBar account={current} controls={controls} onSaveSnapshot={() => {
-          saveAccount({ ...current, snapshots: [...current.snapshots, { id: crypto.randomUUID(), createdAt: new Date().toISOString(), ...scores, note: '' }] });
-        }} />
+        <HeaderBar
+          account={current}
+          controls={controls}
+          onUpdateIdentity={(patch) => saveAccount({ ...current, ...patch })}
+          onSaveSnapshot={() => {
+            saveAccount({ ...current, snapshots: [...current.snapshots, { id: crypto.randomUUID(), createdAt: new Date().toISOString(), ...scores, note: '' }] });
+          }}
+        />
         <div className="p-6 space-y-4">
           <FilterBar tab={tab} setTab={setTab} />
 
